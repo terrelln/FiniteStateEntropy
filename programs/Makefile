@@ -49,6 +49,27 @@ else
 EXT =
 endif
 
+CLANG = clang-3.8
+GCC = gcc-6
+
+bench:
+	make clean && make fullbench CC=$(CLANG)
+	mv fullbench fullbench.$(CLANG)
+	$(CLANG) $(FLAGS) $(FSEDIR)/huf_compress.c -S -o huf_compress.$(CLANG).S
+	$(CLANG) $(FLAGS) $(FSEDIR)/huf_compress.c -S -emit-llvm -o huf_compress.$(CLANG).ll
+	make clean && make fullbench CC=$(GCC)
+	mv fullbench fullbench.$(GCC)
+	$(GCC) $(FLAGS) $(FSEDIR)/huf_compress.c -S -o huf_compress.$(GCC).S
+	@echo "Running benchmarks"
+	./fullbench.$(CLANG) -b42 -i2
+	./fullbench.$(GCC)   -b42 -i2
+	./fullbench.$(CLANG) -b44 -i2
+	./fullbench.$(GCC)   -b44 -i2
+	./fullbench.$(CLANG) -b52 -i2
+	./fullbench.$(GCC)   -b52 -i2
+	./fullbench.$(CLANG) -b54 -i2
+	./fullbench.$(GCC)   -b54 -i2
+
 
 default: fse
 
