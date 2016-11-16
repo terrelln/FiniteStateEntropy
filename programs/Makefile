@@ -63,12 +63,8 @@ bench:
 	@echo "Running benchmarks"
 	./fullbench.$(CLANG) -b42 -i2
 	./fullbench.$(GCC)   -b42 -i2
-	./fullbench.$(CLANG) -b44 -i2
-	./fullbench.$(GCC)   -b44 -i2
 	./fullbench.$(CLANG) -b52 -i2
 	./fullbench.$(GCC)   -b52 -i2
-	./fullbench.$(CLANG) -b54 -i2
-	./fullbench.$(GCC)   -b54 -i2
 
 
 default: fse
